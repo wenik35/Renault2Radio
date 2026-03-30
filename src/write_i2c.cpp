@@ -1,4 +1,5 @@
 #include "functions.h"
+#include "Wire.h"
 
 const int MRQ = 2;
 const byte ADDR = 0x23;

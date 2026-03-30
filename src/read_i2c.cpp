@@ -22,13 +22,13 @@ void setupR2R(int MRQ) {
   TWSR = 0x01;
 
   pinMode(MRQ, INPUT_PULLUP);
-  Serial.println("Tuned Timing Mode: Adding Settling Delays...");
+  Serial.println("R2R live");
 }
 
 byte readI2C(int MRQ) {
   if (digitalRead(MRQ) == LOW) {
     byte data[5];
-    
+
     // --- SETTLING DELAY ---
     // Give the display's slow CPU time to prepare the I2C hardware
     delayMicroseconds(600); 
@@ -36,6 +36,7 @@ byte readI2C(int MRQ) {
     if (Wire.requestFrom(ADDR, 2) == 2) {
       byte header = Wire.read();
       byte status = Wire.read();
+      delayMicroseconds(500); // Short delay before keep-alive
 
       if (header == 0x04) {
         // Wait for current pulse to end
@@ -55,15 +56,11 @@ byte readI2C(int MRQ) {
             // Send keep-alive immediately
             sendKeepAlive();
 
-            // Check if the data is valid (not just all 0xFF)
             if (data[0] != 0xFF) {
-              Serial.print("SUCCESS: ");
-              for(int i=0; i<5; i++) {
-                if(data[i] < 0x10) Serial.print("0");
-                Serial.print(data[i], HEX);
-                Serial.print(" ");
-              }
-              Serial.println();
+              // Return the byte that identifies the button (usually data[2])
+              Serial.print("Received I2C Data: ");
+              Serial.println(data[4], HEX);
+              return data[4];
             }
           }
         }
@@ -74,7 +71,7 @@ byte readI2C(int MRQ) {
     }
     // Final clear to prevent double-triggering
     while (digitalRead(MRQ) == LOW);
-
-    return data[4];
   }
+
+  return 0xFF;
 }

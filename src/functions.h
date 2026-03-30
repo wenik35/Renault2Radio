@@ -1,8 +1,6 @@
 #pragma once
 
 #include <Arduino.h>
-#include "Wire.h"
-#include "Wire.h"
 
 void sendKeepAlive();
 void setupR2R(int MRQ);

@@ -5,7 +5,7 @@ const byte ADDR = 0x23;
 
 void sendKeepAlive();
 void setupR2R(int MRQ);
-void readI2C(int MRQ);
+byte readI2C(int MRQ);
 
 void sendKeepAlive() {
   Wire.beginTransmission(ADDR);
@@ -25,8 +25,9 @@ void setupR2R(int MRQ) {
   Serial.println("Tuned Timing Mode: Adding Settling Delays...");
 }
 
-void readI2C(int MRQ) {
+byte readI2C(int MRQ) {
   if (digitalRead(MRQ) == LOW) {
+    byte data[5];
     
     // --- SETTLING DELAY ---
     // Give the display's slow CPU time to prepare the I2C hardware
@@ -49,7 +50,6 @@ void readI2C(int MRQ) {
           delayMicroseconds(600); 
 
           if (Wire.requestFrom(ADDR, 5) == 5) {
-            byte data[5];
             for(int i=0; i<5; i++) data[i] = Wire.read();
 
             // Send keep-alive immediately
@@ -74,5 +74,7 @@ void readI2C(int MRQ) {
     }
     // Final clear to prevent double-triggering
     while (digitalRead(MRQ) == LOW);
+
+    return data[4];
   }
 }

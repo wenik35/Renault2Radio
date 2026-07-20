@@ -1,8 +1,8 @@
 #include "functions.h"
 #include "IRremote.h"
 
-#define IR_SEND_PIN 5
-#define MRQ_PIN 10
+#define IR_SEND_PIN 4
+#define MRQ_PIN 17
 
 void setup() {
   Serial.begin(115200);

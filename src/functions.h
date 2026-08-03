@@ -4,6 +4,7 @@
 
 void sendKeepAlive();
 void setupR2R(int MRQ);
+void updateText(const char* newText);
 byte readI2C(int MRQ);
 
 // IRremote is included only where needed to avoid duplicate definitions

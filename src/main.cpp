@@ -8,6 +8,7 @@ void setup() {
   Serial.begin(115200);
   setupR2R(MRQ_PIN);
   IrSender.begin(IR_SEND_PIN);
+  updateText("<(-_-)>");
 }
 
 void loop() {

@@ -10,8 +10,8 @@ byte readI2C(int MRQ);
 enum IrSignals {
 	BACK_TAKE_CALL = 0x47,
 	SKIP_END_CALL = 0x45,
-	VOLUME_UP = 0x44,
-	VOLUME_DOWN = 0x40,
+	VOLUME_UP = 0x40,
+	VOLUME_DOWN = 0x44,
 	MODE = 0x7,
 	BAND = 0x46,
 	PHONE_SWITCH = 0xD,

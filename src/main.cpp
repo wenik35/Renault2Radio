@@ -19,7 +19,7 @@ void loop() {
   case VOL_UP_HOLD:
     for (int i = 0; i < 5; i++) {
       IrSender.sendNEC(0x0, int(IrSignals::VOLUME_UP), 0);
-      delay(200); // Short delay between repeats
+      delay(50); // Short delay between repeats
     }
     break;
   case VOL_DOWN_PRESS:
@@ -28,7 +28,7 @@ void loop() {
   case VOL_DOWN_HOLD:
     for (int i = 0; i < 5; i++) {
       IrSender.sendNEC(0x0, int(IrSignals::VOLUME_DOWN), 0);
-      delay(200); // Short delay between repeats
+      delay(50); // Short delay between repeats
     }
     break;
   case PAUSE:
